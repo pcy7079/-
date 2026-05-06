@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNVEIL Graduation Exhibition</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:Arial, 'Noto Sans KR', sans-serif;
+      background:#211f1d;
+      color:#f5f2ee;
+      overflow-x:hidden;
+      line-height:1.8;
+      word-break:keep-all;
+      overflow-wrap:break-word;
+    }
+
+    section{
+      width:100%;
+      padding:120px 8%;
+    }
+
+    /* Poster */
+
+    .poster-section{
+      height:130vh;
+      padding:0;
+      background:#211f1d;
+    }
+
+    .poster-wrap{
+      position:sticky;
+      top:0;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#211f1d;
+    }
+
+    .poster{
+      width:min(88vw, 560px);
+      aspect-ratio:7/10;
+      background:#211f1d;
+      padding:5%;
+      box-shadow:0 30px 80px rgba(0,0,0,.35);
+      transition:opacity .2s linear, transform .2s linear;
+    }
+
+    .poster-top{
+      display:flex;
+      justify-content:space-between;
+      font-size:clamp(13px,2vw,20px);
+      letter-spacing:2px;
+      line-height:1.35;
+      margin-bottom:6%;
+    }
+
+    .poster-grid{
+      display:grid;
+      grid-template-columns:repeat(8,1fr);
+      grid-template-rows:repeat(8,1fr);
+      border:1px solid rgba(255,255,255,.08);
+      aspect-ratio:1/1;
+      background:#cfd0d2;
+    }
+
+    .cell{
+      border:1px solid rgba(0,0,0,.55);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:clamp(22px,7vw,54px);
+      font-weight:800;
+      color:#251917;
+      line-height:1;
+    }
+
+    .pink{background:#cf3a99;color:#d8d8d8;}
+    .blue{background:#0a459c;color:#d8d8d8;}
+    .black{background:#040000;color:#f5f2ee;}
+    .gray{background:#cfd0d2;}
+
+    .small-text{
+      font-size:clamp(10px,2vw,18px);
+      font-weight:400;
+      letter-spacing:1px;
+      justify-content:flex-start;
+      padding-left:8%;
+    }
+
+    .poster-title{
+      font-size:clamp(42px,9vw,78px);
+      font-weight:800;
+      letter-spacing:6px;
+      line-height:1;
+      margin-top:3%;
+    }
+
+    .poster-sub{
+      font-size:clamp(14px,3vw,24px);
+      font-weight:700;
+      margin-top:1%;
+    }
+
+    .poster-date{
+      text-align:right;
+      color:#cf3a99;
+      font-size:clamp(16px,3.6vw,28px);
+      font-weight:800;
+      letter-spacing:3px;
+      line-height:1.7;
+      margin-top:2%;
+    }
+
+    .poster-place{
+      text-align:right;
+      color:#d8d8d8;
+      font-weight:700;
+      font-size:clamp(10px,2vw,16px);
+    }
+
+    .poster-school{
+      text-align:center;
+      color:#777;
+      letter-spacing:6px;
+      font-weight:800;
+      margin-top:4%;
+      font-size:clamp(10px,2vw,16px);
+    }
+
+    /* Intro */
+
+    .intro,
+    .info,
+    .video-section{
+      max-width:1000px;
+      margin:auto;
+      text-align:center;
+    }
+
+    .intro h2{
+      font-size:clamp(44px,8vw,92px);
+      letter-spacing:10px;
+      margin-bottom:40px;
+    }
+
+    .quote{
+      font-size:clamp(22px,4vw,38px);
+      line-height:1.6;
+      margin-bottom:20px;
+      color:#cf3a99;
+    }
+
+    .quote-sub{
+      opacity:.72;
+      margin-bottom:50px;
+    }
+
+    .intro p{
+      max-width:780px;
+      margin:auto;
+      color:#ddd;
+      font-size:16px;
+      line-break:strict;
+    }
+
+    /* Parts */
+
+    .part{
+      max-width:900px;
+      margin:auto;
+      min-height:52vh;
+      display:flex;
+      align-items:center;
+      position:relative;
+      overflow:visible;
+    }
+
+    .part-text{
+      position:relative;
+      z-index:2;
+    }
+
+    .part-text small{
+      font-size:14px;
+      letter-spacing:3px;
+      opacity:.55;
+    }
+
+    .part-text h3{
+      font-size:clamp(42px,7vw,82px);
+      line-height:1.1;
+      margin:12px 0;
+      color:#fff;
+    }
+
+    .part-text h4{
+      font-size:20px;
+      margin-bottom:28px;
+      color:#cf3a99;
+      font-weight:600;
+    }
+
+    .part-text p{
+      font-size:16px;
+      color:#ddd;
+      max-width:680px;
+      line-break:strict;
+    }
+
+    /* Gradients */
+
+    .gradient{
+      position:absolute;
+      width:320px;
+      height:320px;
+      border-radius:50%;
+      opacity:.42;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      z-index:1;
+      filter:blur(48px);
+      pointer-events:none;
+    }
+
+    .gradient-pink{
+      background:radial-gradient(circle,
+      rgba(207,58,153,.95) 0%,
+      rgba(207,58,153,.82) 35%,
+      rgba(207,58,153,0) 72%);
+    }
+
+    .gradient-blue{
+      background:radial-gradient(circle,
+      rgba(10,69,156,.95) 0%,
+      rgba(10,69,156,.8) 35%,
+      rgba(10,69,156,0) 72%);
+    }
+
+    .gradient-purple{
+      background:radial-gradient(circle,
+      rgba(124,77,255,.95) 0%,
+      rgba(124,77,255,.82) 35%,
+      rgba(124,77,255,0) 72%);
+    }
+
+    /* Info */
+
+    .info h2,
+    .video-section h2{
+      font-size:clamp(34px,6vw,68px);
+      margin-bottom:50px;
+    }
+
+    .schedule p{
+      font-size:18px;
+      margin:8px 0;
+    }
+
+    .location-box{
+      margin-top:60px;
+      background:rgba(255,255,255,.055);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      padding:46px 26px;
+    }
+
+    .map-frame{
+      width:100%;
+      height:320px;
+      border:none;
+      border-radius:22px;
+      margin-top:30px;
+      margin-bottom:26px;
+    }
+
+    .map-button{
+      display:inline-block;
+      margin-top:8px;
+      padding:14px 34px;
+      border-radius:999px;
+      background:#f5f2ee;
+      color:#211f1d;
+      text-decoration:none;
+      font-weight:800;
+    }
+
+    /* Video */
+
+    .video-box{
+      height:360px;
+      border-radius:28px;
+      background:rgba(255,255,255,.055);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#aaa;
+      font-size:20px;
+    }
+
+    /* Mobile */
+
+    @media(max-width:700px){
+
+      section{
+        padding:90px 7%;
+      }
+
+      .poster{
+        width:92vw;
+      }
+
+      .part{
+        min-height:auto;
+        padding:50px 0;
+      }
+
+      .poster-school{
+        letter-spacing:3px;
+      }
+
+      .gradient{
+        width:240px;
+        height:240px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Poster -->
+
+  <section class="poster-section">
+
+    <div class="poster-wrap">
+
+      <div class="poster">
+
+        <div class="poster-top">
+          <div>
+            2026<br>
+            GRADUATION<br>
+            EXHIBITION
+          </div>
+
+          <div>
+            BEAUTY<br>
+            MEDICAL<br>
+            DESIGN
+          </div>
+        </div>
+
+        <div class="poster-grid">
+
+          <div class="cell blue"></div>
+          <div class="cell pink">U</div>
+          <div class="cell pink">N</div>
+          <div class="cell pink">V</div>
+          <div class="cell pink">E</div>
+          <div class="cell pink">I</div>
+          <div class="cell pink">L</div>
+          <div class="cell black"></div>
+
+          <div class="cell blue"></div>
+          <div class="cell blue"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray">U</div>
+          <div class="cell gray"></div>
+
+          <div class="cell black"></div>
+          <div class="cell black"></div>
+          <div class="cell blue"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray">M</div>
+          <div class="cell gray"></div>
+
+          <div class="cell gray"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray"></div>
+          <div class="cell pink"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray">I</div>
+          <div class="cell gray"></div>
+
+          <div class="cell gray">D</div>
+          <div class="cell gray">R</div>
+          <div class="cell pink">E</div>
+          <div class="cell pink">A</div>
+          <div class="cell pink">M</div>
+          <div class="cell gray">I</div>
+          <div class="cell gray">N</div>
+          <div class="cell gray">G</div>
+
+          <div class="cell black small-text" style="grid-column:1/5;">
+            DREAMING in the ABYSS,<br>
+            yet still LUMINOUS
+          </div>
+
+          <div class="cell pink"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray">O</div>
+          <div class="cell blue"></div>
+
+          <div class="cell gray"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray"></div>
+          <div class="cell pink"></div>
+          <div class="cell gray"></div>
+          <div class="cell pink">U</div>
+          <div class="cell pink"></div>
+
+          <div class="cell gray"></div>
+          <div class="cell gray"></div>
+          <div class="cell gray">A</div>
+          <div class="cell gray">B</div>
+          <div class="cell gray">Y</div>
+          <div class="cell pink">S</div>
+          <div class="cell pink">S</div>
+          <div class="cell blue"></div>
+
+        </div>
+
+        <div class="poster-title">UNVEIL:</div>
+
+        <div class="poster-sub">
+          베일을 벗기다, 공개
+        </div>
+
+        <div class="poster-date">
+          OCTOBER 23<br>
+          OCTOBER 25
+        </div>
+
+        <div class="poster-place">
+          안양아트센터 갤러리 미담
+        </div>
+
+        <div class="poster-school">
+          ANYANG UNIVERSITY
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Intro -->
+
+  <section>
+
+    <div class="intro">
+
+      <h2>UNVEIL</h2>
+
+      <div class="quote">
+        DREAMING in the ABYSS,<br>
+        yet still LUMINOUS
+      </div>
+
+      <div class="quote-sub">
+        심연 속에서 꿈꾸며, 그럼에도 빛나는 우리에 대한 기록
+      </div>
+
+      <p>
+        불안한 청춘의 깊은 어둠과 그 안에서 스스로 빛을 만들어내는 우리의 시작을 담은,
+        졸업이라는 경계의 순간.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- Part 1 -->
+
+  <section>
+
+    <div class="part">
+
+      <div class="gradient gradient-pink"></div>
+
+      <div class="part-text">
+
+        <small>PART 1</small>
+
+        <h3>LUMINOUS</h3>
+
+        <h4>빛나는, 스스로 발광하는</h4>
+
+        <p>
+          그 심연 속에서조차 사라지지 않는 것이 있다.
+          아주 작은 빛이지만, 스스로 빛나는 존재로서의 우리.
+          희망, 열정, 그리고 창작의 에너지는 어둠 속에서도 꺼지지 않고 길을 비춘다.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Part 2 -->
+
+  <section>
+
+    <div class="part">
+
+      <div class="gradient gradient-blue"></div>
+
+      <div class="part-text">
+
+        <small>PART 2</small>
+
+        <h3>ABYSS</h3>
+
+        <h4>심연</h4>
+
+        <p>
+          하지만 그 꿈의 이면에는 끝을 알 수 없는 심연이 있다.
+          불안, 좌절, 비교, 흔들림.
+          깊고 어두운 감정들이 우리를 삼키려 할 때,
+          우리는 스스로의 내면 가장 깊은 곳과 마주하게 된다.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Part 3 -->
+
+  <section>
+
+    <div class="part">
+
+      <div class="gradient gradient-purple"></div>
+
+      <div class="part-text">
+
+        <small>PART 3</small>
+
+        <h3>DREAMING</h3>
+
+        <h4>꿈꾸는 중</h4>
+
+        <p>
+          우리는 아직 완성되지 않은 존재로,
+          끊임없이 꿈을 꾸는 중이다.
+          불확실한 미래와 두려움 속에서도 상상은 멈추지 않고,
+          각자의 이상과 가능성은 마음속에서 계속해서 자라난다.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Exhibition Info -->
+
+  <section>
+
+    <div class="info">
+
+      <h2>EXHIBITION INFO</h2>
+
+      <div class="schedule">
+
+        <p><strong>안양아트센터 갤러리 미담</strong></p>
+
+        <p>2026. 10. 23 - 25</p>
+
+        <br>
+
+        <p>10. 23 &nbsp; 15:00 - 18:00</p>
+        <p>10. 24 &nbsp; 09:00 - 18:00</p>
+        <p>10. 25 &nbsp; 09:00 - 15:00</p>
+
+      </div>
+
+      <div class="location-box">
+
+        <h3>안양아트센터 갤러리 미담</h3>
+
+        <p>
+          경기 안양시 만안구 문예로36번길 16
+        </p>
+
+        <iframe
+          class="map-frame"
+          src="https://maps.google.com/maps?q=%EC%95%88%EC%96%91%EC%95%84%ED%8A%B8%EC%84%BC%ED%84%B0&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          loading="lazy">
+        </iframe>
+
+        <a
+          class="map-button"
+          href="https://naver.me/GI3pp292"
+          target="_blank">
+
+          네이버 지도에서 길찾기
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Video -->
+
+  <section class="video-section">
+
+    <h2>OUR STORY</h2>
+
+    <div class="video-box">
+      VIDEO COMING SOON
+    </div>
+
+  </section>
+
+  <!-- Scroll Effect -->
+
+  <script>
+
+    const poster = document.querySelector('.poster');
+
+    window.addEventListener('scroll', () => {
+
+      const y = window.scrollY;
+
+      poster.style.opacity = Math.max(0, 1 - y / 600);
+
+      poster.style.transform =
+        `scale(${Math.max(.92, 1 - y / 4000)})`;
+
+    });
+
+  </script>
+
+</body>
+</html>
